@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/VictorBitca/HackerNewsKit",
       "state" : {
-        "branch" : "main",
-        "revision" : "3fec3444c37fa66a54233025017df021da9b00b7"
+        "revision" : "c3c06b1a66fda29e1393c87a9f94174e86340074",
+        "version" : "0.0.1"
       }
     },
     {

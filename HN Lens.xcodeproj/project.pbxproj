@@ -697,8 +697,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/VictorBitca/HackerNewsKit";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.0.1;
 			};
 		};
 		BC3B2E4D286EDDD100CC3CDA /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
