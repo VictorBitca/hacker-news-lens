@@ -12,13 +12,15 @@ struct CommentView: View {
         let indentationColor: Color = Pallete.rainbowColors(at: comment.level).color
         
         HStack(spacing: 0) {
-                RoundedRectangle(cornerRadius: 1)
+            RoundedRectangle(cornerRadius: 1)
                 .foregroundColor(indentationColor)
-                    .frame(maxWidth: 3)
-                                .padding(.init(top:2 ,
-                                               leading: commentIndentation,
-                                               bottom: 2,
-                                               trailing: 0))
+                .frame(maxWidth: 3)
+                .padding(.init(
+                    top:2 ,
+                    leading: commentIndentation,
+                    bottom: 2,
+                    trailing: 0)
+                )
             
             HStack {
                 VStack(alignment: .leading) {
@@ -34,7 +36,7 @@ struct CommentView: View {
                     }.padding(.init(top: 8, leading: 8, bottom: 0, trailing: 0))
                     
                     AttributedText(attributedText: { comment.text })
-                    .padding(.init(top: 0, leading: 8, bottom: 8, trailing: 8))
+                        .padding(.init(top: 0, leading: 8, bottom: 8, trailing: 8))
                 }
                 Spacer()
             }

@@ -12,7 +12,6 @@ class CommentModel: Identifiable, ObservableObject {
     let id = UUID()
     let hnID: Int
     let author: String
-    // TODO: make it lazy
     let text: NSAttributedString
     let time: String
     let level: Int

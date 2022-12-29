@@ -102,7 +102,7 @@ public class PostModel: Identifiable, ObservableObject {
         title = story.title
         author = story.author
         score = String(story.score)
-        descendants = String(story.kids.count)
+        descendants = String(story.commentsCount)
         time = story.time
         kids = story.kids
         text = story.text

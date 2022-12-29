@@ -13,19 +13,17 @@ struct RootView: View {
     @ObservedObject var model: AppModel
     @StateObject var coordinator = Coordinator()
     
-    @State private var selection: Panel? = Panel.top
+    @State private var selectedTab: Panel? = Panel.top
+    
 
     var body: some View {
         NavigationSplitView {
-            Sidebar(selection: $selection)
+            Sidebar(selection: $selectedTab)
         } detail: {
             NavigationStack(path: $coordinator.path) {
-                DetailColumn(selection: $selection, model: model)
+                DetailColumn(selection: $selectedTab, model: model)
             }
             .environmentObject(coordinator)
-        }
-        .onChange(of: selection) { _ in
-            coordinator.path.removeLast(coordinator.path.count)
         }
         .onOpenURL { url in
             debugPrint("onOpenURL URL", url)

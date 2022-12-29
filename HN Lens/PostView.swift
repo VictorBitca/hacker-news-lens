@@ -41,11 +41,9 @@ struct PostView: View {
             
             if let url = post.shortURL {
                 Text(url)
-                    .font(.system(size: 8))
+                    .font(.footnote)
                     .foregroundColor(Pallete.textSecondary.color)
                     .frame(maxWidth: 120)
-                    .shadow(color: Pallete.grayDark.color,
-                            radius: 1, x: 0, y: 0)
             }
             Spacer().layoutPriority(1)
         }
@@ -65,25 +63,34 @@ struct PostView: View {
                 Rectangle()
                     .frame(width: 120, height: 80)
                     .foregroundStyle(LinearGradient(gradient: Gradient(colors: [primaryAccent, secondaryAccent]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                Text(post.siteSymbol)
-                    .font(.title)
-                    .bold()
-                    .minimumScaleFactor(0.15)
-                    .lineLimit(3)
-                    .shadow(color: primaryAccent,
-                            radius: 0, x: 2, y: 2)
-                    .shadow(color: secondaryAccent,
-                            radius: 10, x: 0, y: 0)
-                    .foregroundColor(.white)
-                    .padding([.leading, .bottom, .trailing], 8)
-                    .frame(maxWidth: 120)
+                ZStack {
+                    Text(post.siteSymbol)
+                        .font(.title)
+                        .bold()
+                        .minimumScaleFactor(0.15)
+                        .lineLimit(3)
+                        .foregroundColor(primaryAccent)
+                        .padding([.leading, .bottom, .trailing], 8)
+                        .frame(maxWidth: 120)
+                        .offset(x: 4, y: 4)
+                    
+                    Text(post.siteSymbol)
+                        .font(.title)
+                        .bold()
+                        .minimumScaleFactor(0.15)
+                        .lineLimit(3)
+                        .foregroundColor(.white)
+                        .padding([.leading, .bottom, .trailing], 8)
+                        .frame(maxWidth: 120)
+                }
             }
             
             .cornerRadius(4)
             
             if let url = post.shortURL {
                 Text(url)
-                    .font(.system(size: 8))
+                    .font(.footnote)
+                    .minimumScaleFactor(0.5)
                     .foregroundColor(Pallete.textSecondary.color)
                     .frame(maxWidth: 100)
                     .shadow(color: Pallete.grayDark.color,
@@ -106,6 +113,17 @@ struct PostView: View {
             }
             
             VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    Text(post.author)
+                        .font(.caption2)
+                        .foregroundColor(Pallete.textSecondary.color)
+                    Circle().frame(width: 4, height: 4)
+                        .foregroundColor(Pallete.textSecondary.color)
+                    Text(post.time)
+                        .font(.caption2)
+                        .foregroundColor(Pallete.textSecondary.color)
+                }
+                
                 Text(post.title)
                     .font(.callout)
                     .minimumScaleFactor(0.3)
@@ -113,7 +131,8 @@ struct PostView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .frame(alignment: .topLeading)
                 Divider()
-                statsView().foregroundColor(.secondary)
+                statsView()
+                    .foregroundColor(.secondary)
             }
             .padding([.top, .trailing, .bottom], 8)
         }
