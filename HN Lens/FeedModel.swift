@@ -25,8 +25,6 @@ public class FeedModel: ObservableObject {
     
     func fetchPosts() async {
         do {
-            // FIXME: load main feed items in multiple steps to speed up the TTI.
-            state = .loading
             let allStories = try await HackerNewsAPI.shared.mainFeedItems(feedType: feedType).map { PostModel(from: $0) }
             
             state = .loaded(posts: allStories)

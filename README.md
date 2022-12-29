@@ -1,12 +1,13 @@
 # HN Lens for Hacker News
 
 
-**HN Lens** is a Hacker News client for iOS (only iOS and optimized only for iPhone devices ATM)
+**HN Lens** is an open source Hacker News client for iOS/macOS devices.
 
-![App Image](images/promo_image.png?)
+![App Image](images/ios_promo.png?)
+![App Image](images/macos_promo.png.png?)
 -------
 
-The app consists of a thin SwiftUI layer and the [**HackerNewsKit**](https://github.com/VictorBitca/HackerNewsKit) package that initially was part of the project.
+The app consists of two main components, the SwiftUI part and the [**HackerNewsKit**](https://github.com/VictorBitca/HackerNewsKit) package that initially was part of the project.
 
 **HackerNewsKit** was extracted after the line between strictly UI code and HN API wrappers and other services became clearer, it is responsible for most of the heavy lifting:
 - Accessing the [public HN API](https://github.com/HackerNews/API) and the private API, basically, the functionality that's exposed through the website but not through the public API.

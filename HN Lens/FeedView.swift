@@ -1,11 +1,36 @@
 import SwiftUI
 import HackerNewsKit
 
+struct ContentView: View {
+   @State var frame: CGSize = .zero
+    
+    var body: some View {
+        HStack {
+            GeometryReader { (geometry) in
+                self.makeView(geometry)
+            }
+        }
+    }
+    
+    func makeView(_ geometry: GeometryProxy) -> some View {
+        print(geometry.size.width, geometry.size.height)
+
+        DispatchQueue.main.async { self.frame = geometry.size }
+
+        return Text("Test")
+                .frame(width: geometry.size.width)
+                .overlay(Color(.red))
+    }
+}
+
 struct FeedView: View {
     @ObservedObject var model: FeedModel
     @EnvironmentObject var coordinator: Coordinator
+    @Environment(\.horizontalSizeClass) var sizeClass
     
-    var gridItemLayout = [GridItem(.adaptive(minimum: 130), alignment: .top)]
+    let columns = [
+        GridItem(.adaptive(minimum: 350, maximum: 600), spacing: 10),
+    ]
 
     var body: some View {
         VStack {
@@ -13,21 +38,25 @@ struct FeedView: View {
             case .loading, .failed:
                 ProgressView()
             case .loaded(let posts):
-                List() {
-                    ForEach(posts) { post in
-                        PostView(post: post)
-                            .onAppear {
-                                post.didAppear()
-                            }.onDisappear {
-                                post.didDisappear()
-                            }
-                            .listRowSeparator(.hidden)
-                            .onTapGesture {
-                                coordinator.path.append(post)
-                            }
+                
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(posts) { post in
+                            PostView(post: post)
+                                .onAppear {
+                                    post.didAppear()
+                                }
+                                .onDisappear {
+                                    post.didDisappear()
+                                }
+                                .listRowSeparator(.hidden)
+                                .onTapGesture {
+                                    coordinator.path.append(post)
+                                }
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .listStyle(.plain)
                 .refreshable { await model.fetchPosts() }
             }
         }

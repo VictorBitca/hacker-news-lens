@@ -22,16 +22,15 @@ struct CommentsView: View {
                             CommentView(comment: comment)
                         }
                     }
-                    .padding(.trailing, 8)
-                }.onDisappear {
-                    post.commentsDidDisappear()
+                    .scenePadding([.leading, .trailing])
                 }
+                .refreshable { try? await post.loadComments() }
+                .onDisappear { post.commentsDidDisappear() }
             } else {
                 ProgressView()
             }
-        }.task {
-            try? await post.loadComments()
         }
+        .task { try? await post.loadComments() }
         .navigationTitle("Comments")
     }
 }
