@@ -16,7 +16,6 @@ struct FeedView: View {
             case .loading, .failed:
                 ProgressView()
             case .loaded(let posts):
-                
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(posts) { post in

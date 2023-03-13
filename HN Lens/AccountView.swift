@@ -1,9 +1,21 @@
 import SwiftUI
 import HackerNewsKit
+import ComposableArchitecture
+
+enum AccountDestinations: Hashable {
+    case upvotedStories
+    case favoriteStories
+    case upvotedComments
+    case favoriteComments
+}
 
 struct AccountView: View {
     @ObservedObject var model: AccountModel
     @EnvironmentObject var coordinator: Coordinator
+    @State var upvotedStoriesStore = Store(initialState: SavedStoriesFeed.State(saveType: .upvote), reducer: SavedStoriesFeed())
+    @State var favoriteStoriesStore = Store(initialState: SavedStoriesFeed.State(saveType: .favorite), reducer: SavedStoriesFeed())
+    @State var upvotedCommentsStore = Store(initialState: SavedCommentsFeed.State(saveType: .upvote), reducer: SavedCommentsFeed())
+    @State var favoriteCommentsStore = Store(initialState: SavedCommentsFeed.State(saveType: .favorite), reducer: SavedCommentsFeed())
     
     @ViewBuilder
     func loginView() -> some View {
@@ -55,16 +67,16 @@ struct AccountView: View {
     func list() -> some View {
         List() {
             Section {
-                NavigationLink(value: model.upvotedStoriesModel) {
+                NavigationLink(value: AccountDestinations.upvotedStories) {
                     Label("Upvoted Stories", systemImage: "square.text.square")
                 }
-                NavigationLink(value: model.upvotedCommentsModel) {
+                NavigationLink(value: AccountDestinations.upvotedComments) {
                     Label("Upvoted Comments", systemImage: "text.bubble")
                 }
-                NavigationLink(value: model.favoriteStoriesModel) {
+                NavigationLink(value: AccountDestinations.favoriteStories) {
                     Label("Favorite Stories", systemImage: "text.badge.star")
                 }
-                NavigationLink(value: model.favoriteCommentsModel) {
+                NavigationLink(value: AccountDestinations.favoriteComments) {
                     Label("Favorite Comments", systemImage: "star.bubble")
                 }
             }
@@ -85,9 +97,21 @@ struct AccountView: View {
         }
         .navigationTitle("Account")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(for: SavedItemsFeedModel.self) { model in
-            // TODO: investigate why the SavedItemsFeedModel cant automatically access the EnvironmentObject
-            SavedItemsFeedView(model: model).environmentObject(self.coordinator)
+        .navigationDestination(for: AccountDestinations.self) { destination in
+            switch destination {
+            case .upvotedStories:
+                SavedPostsFeedView(store: upvotedStoriesStore)
+                    .environmentObject(self.coordinator)
+            case .upvotedComments:
+                SavedCommentsFeedView(store: upvotedCommentsStore)
+                    .environmentObject(self.coordinator)
+            case .favoriteStories:
+                SavedPostsFeedView(store: favoriteStoriesStore)
+                    .environmentObject(self.coordinator)
+            case .favoriteComments:
+                SavedCommentsFeedView(store: favoriteCommentsStore)
+                    .environmentObject(self.coordinator)
+            }
         }
     }
 }

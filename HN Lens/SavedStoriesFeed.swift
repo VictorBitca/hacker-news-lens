@@ -1,0 +1,117 @@
+import SwiftUI
+import HackerNewsKit
+import AttributedText
+import ComposableArchitecture
+
+struct SavedStoriesFeed: ReducerProtocol, Hashable {
+    enum Action: Equatable {
+        case viewAppeared
+        case commentsFetched([SavedCommentModel])
+        case storiesFetched([PostModel])
+        case refresh
+    }
+    
+    enum FeedState: Equatable {
+        case loading
+        case loaded
+    }
+    
+    struct State: Equatable {
+        let saveType: SaveType
+        var feedState: FeedState = .loading
+        var loadedPosts = [PostModel]()
+        var title = "Stories"
+    }
+    
+    func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+        switch action {
+        case .viewAppeared:
+            switch state.saveType {
+            case .upvote:
+                state.title = "Upvoted Stories"
+            case .favorite:
+                state.title = "Favorite Stories"
+            }
+            
+            switch state.feedState {
+            case .loaded:
+                return .none
+            case .loading:
+                return fetchAllStories(state: &state)
+            }
+        case .commentsFetched(_):
+            return .none
+        case .storiesFetched(let posts):
+            state.loadedPosts += posts
+            state.feedState = .loaded
+            return .none
+        case .refresh:
+            state.loadedPosts = []
+            return .none
+        }
+    }
+    
+    private func fetchAllStories(state: inout State) -> EffectTask<Action> {
+        let saveType = state.saveType
+        
+        return .run { send in
+            let channel = try HackerNewsAPI.shared.savedStories(of: saveType)
+                .map { savedStories in
+                    savedStories.map { PostModel(from: $0) }
+                }
+            
+            for await stories in channel {
+                await send(.storiesFetched(stories))
+            }
+        }
+    }
+}
+
+struct SavedPostsFeedView: View {
+    let store: StoreOf<SavedStoriesFeed>
+    @EnvironmentObject var coordinator: Coordinator
+    let columns = [
+        GridItem(.adaptive(minimum: 350, maximum: 600), spacing: 10),
+    ]
+    
+    @ViewBuilder
+    func postList(posts: [PostModel]) -> some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(posts) { post in
+                    PostView(post: post)
+                        .onAppear {
+                            post.didAppear()
+                        }
+                        .onDisappear {
+                            post.didDisappear()
+                        }
+                        .listRowSeparator(.hidden)
+                        .onTapGesture {
+                            coordinator.path.append(post)
+                        }
+                }
+            }
+        }.padding(.horizontal)
+    }
+
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { (viewStore: ViewStoreOf<SavedStoriesFeed>) in
+            VStack {
+                switch viewStore.feedState {
+                case .loading:
+                    ProgressView()
+                case .loaded:
+                    postList(posts: viewStore.loadedPosts)
+                        .refreshable { viewStore.send(.refresh) }
+                }
+            }
+            .navigationTitle(viewStore.title)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: PostModel.self) { post in
+                CommentsView(post: post)
+            }
+            .onAppear { viewStore.send(.viewAppeared) }
+        }
+    }
+}

@@ -130,7 +130,7 @@ public class PostModel: Identifiable, ObservableObject {
     
     func didAppear() {
         if metadataFetched { return }
-        fetchImageMetadata()
+//        fetchImageMetadata()
     }
     
     func didDisappear() {
