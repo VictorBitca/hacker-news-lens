@@ -19,6 +19,13 @@ Building and running
 
 The HackerNewsKit dependency uses Firebase to access the public HN API, therefore the project requires a `GoogleService-Info.plist` config file in the `HN Lens` folder.
 [See how to generate and download the Firebase config file for details](https://support.google.com/firebase/answer/7015592?hl=en#ios)
+The most important step is to add the database URL in plist:
+```
+    ...
+    <key>DATABASE_URL</key>
+    <string>https://hacker-news.firebaseio.com</string>
+    ...
+```
 
 # Licence
 HN Lens is free software available under Version 3 of the GNU General Public License. See COPYING for details.

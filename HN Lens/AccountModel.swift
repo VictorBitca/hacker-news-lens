@@ -15,24 +15,6 @@ public class AccountModel: ObservableObject {
     @Published var password: String = ""
     @Published var failedAttempts: Int = 0
     
-    private var g: AsyncChannel<[Int]>!
-    
-    lazy var upvotedStoriesModel: SavedItemsFeedModel = {
-        return SavedItemsFeedModel(feedType: .stories(.upvoted))
-    }()
-    
-    lazy var upvotedCommentsModel: SavedItemsFeedModel = {
-        return SavedItemsFeedModel(feedType: .comments(.upvoted))
-    }()
-    
-    lazy var favoriteStoriesModel: SavedItemsFeedModel = {
-        return SavedItemsFeedModel(feedType: .stories(.favorite))
-    }()
-    
-    lazy var favoriteCommentsModel: SavedItemsFeedModel = {
-        return SavedItemsFeedModel(feedType: .comments(.favorite))
-    }()
-    
     func onAppear() {
         if HackerNewsAPI.shared.isLoggedIn {
             state = .loggedIn(username: HackerNewsAPI.shared.loggedInUser ?? "undefined")

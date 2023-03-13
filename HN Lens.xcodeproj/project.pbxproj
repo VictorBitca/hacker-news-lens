@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		574C1ACF294FAA97007918C2 /* Pallete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C1ACE294FAA97007918C2 /* Pallete.swift */; };
+		5772431A29B5438C0000A236 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5772431929B5438C0000A236 /* ComposableArchitecture */; };
+		5772431F29BFB9EB0000A236 /* SavedCommentsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5772431E29BFB9EB0000A236 /* SavedCommentsFeed.swift */; };
 		5797E2F8295245F1007DED66 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5797E2F7295245F1007DED66 /* README.md */; };
 		5797E2FA29525DC8007DED66 /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5797E2F929525DC8007DED66 /* COPYING.txt */; };
 		57ADAE6D29531F6900D81B0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57ADAE6C29531F6900D81B0A /* GoogleService-Info.plist */; };
 		57C378CF2946585F002C1728 /* HackerNewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 57C378CE2946585F002C1728 /* HackerNewsKit */; };
-		BC0F341F29324D3D0036E32D /* SavedItemsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0F341E29324D3D0036E32D /* SavedItemsFeedView.swift */; };
-		BC0F342129324D740036E32D /* SavedItemsFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0F342029324D740036E32D /* SavedItemsFeedModel.swift */; };
+		BC0F341F29324D3D0036E32D /* SavedStoriesFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0F341E29324D3D0036E32D /* SavedStoriesFeed.swift */; };
 		BC1D2E76285395F600376122 /* HNLens.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1D2E75285395F600376122 /* HNLens.swift */; };
 		BC1D2E78285395F600376122 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1D2E77285395F600376122 /* FeedView.swift */; };
 		BC1D2E7A285395FA00376122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC1D2E79285395FA00376122 /* Assets.xcassets */; };
@@ -70,11 +71,12 @@
 /* Begin PBXFileReference section */
 		574C1ACE294FAA97007918C2 /* Pallete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pallete.swift; sourceTree = "<group>"; };
 		5766990A295DE51800A88B99 /* HN Lens.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HN Lens.entitlements"; sourceTree = "<group>"; };
+		5772431D29B7D11B0000A236 /* HackerNewsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HackerNewsKit; path = ../HackerNewsKit; sourceTree = "<group>"; };
+		5772431E29BFB9EB0000A236 /* SavedCommentsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCommentsFeed.swift; sourceTree = "<group>"; };
 		5797E2F7295245F1007DED66 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5797E2F929525DC8007DED66 /* COPYING.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
 		57ADAE6C29531F6900D81B0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		BC0F341E29324D3D0036E32D /* SavedItemsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedItemsFeedView.swift; sourceTree = "<group>"; };
-		BC0F342029324D740036E32D /* SavedItemsFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedItemsFeedModel.swift; sourceTree = "<group>"; };
+		BC0F341E29324D3D0036E32D /* SavedStoriesFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedStoriesFeed.swift; sourceTree = "<group>"; };
 		BC1D2E72285395F600376122 /* HN Lens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HN Lens.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D2E75285395F600376122 /* HNLens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNLens.swift; sourceTree = "<group>"; };
 		BC1D2E77285395F600376122 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			files = (
 				BCAAB2692937D90600DD1710 /* AttributedText in Frameworks */,
 				57C378CF2946585F002C1728 /* HackerNewsKit in Frameworks */,
+				5772431A29B5438C0000A236 /* ComposableArchitecture in Frameworks */,
 				BC3B2E4F286EDDD200CC3CDA /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +134,7 @@
 		BC1D2E69285395F600376122 = {
 			isa = PBXGroup;
 			children = (
+				5772431D29B7D11B0000A236 /* HackerNewsKit */,
 				5797E2F929525DC8007DED66 /* COPYING.txt */,
 				5797E2F7295245F1007DED66 /* README.md */,
 				BC1D2E74285395F600376122 /* HN Lens */,
@@ -171,11 +175,11 @@
 				BCCBFAA029257CCB00EBB507 /* AccountModel.swift */,
 				BC1D2EA8285397B600376122 /* PostView.swift */,
 				BC85685F285884A2005E4834 /* PostModel.swift */,
-				BC85686B2858DA37005E4834 /* CommentView.swift */,
 				BC5192872905B8BD00E5C953 /* CommentsView.swift */,
+				BC85686B2858DA37005E4834 /* CommentView.swift */,
 				BC85686128588759005E4834 /* CommentModel.swift */,
-				BC0F341E29324D3D0036E32D /* SavedItemsFeedView.swift */,
-				BC0F342029324D740036E32D /* SavedItemsFeedModel.swift */,
+				BC0F341E29324D3D0036E32D /* SavedStoriesFeed.swift */,
+				5772431E29BFB9EB0000A236 /* SavedCommentsFeed.swift */,
 				574C1ACE294FAA97007918C2 /* Pallete.swift */,
 			);
 			path = "HN Lens";
@@ -225,6 +229,7 @@
 				BC3B2E4E286EDDD200CC3CDA /* AsyncAlgorithms */,
 				BCAAB2682937D90600DD1710 /* AttributedText */,
 				57C378CE2946585F002C1728 /* HackerNewsKit */,
+				5772431929B5438C0000A236 /* ComposableArchitecture */,
 			);
 			productName = "HN Lens";
 			productReference = BC1D2E72285395F600376122 /* HN Lens.app */;
@@ -302,6 +307,7 @@
 				BC3B2E4D286EDDD100CC3CDA /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 				BCAAB2672937D90500DD1710 /* XCRemoteSwiftPackageReference "AttributedText" */,
 				57C378CD2946585F002C1728 /* XCRemoteSwiftPackageReference "HackerNewsKit" */,
+				5772431829B5438C0000A236 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = BC1D2E73285395F600376122 /* Products */;
 			projectDirPath = "";
@@ -351,6 +357,7 @@
 				BC1D2EA9285397B600376122 /* PostView.swift in Sources */,
 				574C1ACF294FAA97007918C2 /* Pallete.swift in Sources */,
 				BCCBFAA129257CCB00EBB507 /* AccountModel.swift in Sources */,
+				5772431F29BFB9EB0000A236 /* SavedCommentsFeed.swift in Sources */,
 				BC856860285884A2005E4834 /* PostModel.swift in Sources */,
 				BC5192882905B8BD00E5C953 /* CommentsView.swift in Sources */,
 				BC1D2E78285395F600376122 /* FeedView.swift in Sources */,
@@ -358,14 +365,13 @@
 				BC85686C2858DA37005E4834 /* CommentView.swift in Sources */,
 				BC6E0E5828EA193300B1E87A /* AccountView.swift in Sources */,
 				BC1D2EA02853968D00376122 /* AppModel.swift in Sources */,
-				BC0F341F29324D3D0036E32D /* SavedItemsFeedView.swift in Sources */,
+				BC0F341F29324D3D0036E32D /* SavedStoriesFeed.swift in Sources */,
 				BC5192842905B3A400E5C953 /* FeedModel.swift in Sources */,
 				BC85686228588759005E4834 /* CommentModel.swift in Sources */,
 				BC6E0E5328E62D1A00B1E87A /* DetailColumn.swift in Sources */,
 				BC1D2E76285395F600376122 /* HNLens.swift in Sources */,
 				BC6E0E5128E6295900B1E87A /* SideBar.swift in Sources */,
 				BC6E0E4F28E6267C00B1E87A /* RootView.swift in Sources */,
-				BC0F342129324D740036E32D /* SavedItemsFeedModel.swift in Sources */,
 				BC6E0E5528E62E8100B1E87A /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,6 +709,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5772431829B5438C0000A236 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 		57C378CD2946585F002C1728 /* XCRemoteSwiftPackageReference "HackerNewsKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/VictorBitca/HackerNewsKit";
@@ -730,6 +744,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5772431929B5438C0000A236 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5772431829B5438C0000A236 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
 		57C378CE2946585F002C1728 /* HackerNewsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 57C378CD2946585F002C1728 /* XCRemoteSwiftPackageReference "HackerNewsKit" */;
