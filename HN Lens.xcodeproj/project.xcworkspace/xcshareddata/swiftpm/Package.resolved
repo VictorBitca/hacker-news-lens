@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "hackernewskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/VictorBitca/HackerNewsKit",
+      "state" : {
+        "revision" : "c3c06b1a66fda29e1393c87a9f94174e86340074",
+        "version" : "0.0.1"
+      }
+    },
+    {
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",

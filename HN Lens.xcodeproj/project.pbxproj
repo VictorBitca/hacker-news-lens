@@ -71,7 +71,6 @@
 /* Begin PBXFileReference section */
 		574C1ACE294FAA97007918C2 /* Pallete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pallete.swift; sourceTree = "<group>"; };
 		5766990A295DE51800A88B99 /* HN Lens.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HN Lens.entitlements"; sourceTree = "<group>"; };
-		5772431D29B7D11B0000A236 /* HackerNewsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HackerNewsKit; path = ../HackerNewsKit; sourceTree = "<group>"; };
 		5772431E29BFB9EB0000A236 /* SavedCommentsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCommentsFeed.swift; sourceTree = "<group>"; };
 		5797E2F7295245F1007DED66 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5797E2F929525DC8007DED66 /* COPYING.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
@@ -134,7 +133,6 @@
 		BC1D2E69285395F600376122 = {
 			isa = PBXGroup;
 			children = (
-				5772431D29B7D11B0000A236 /* HackerNewsKit */,
 				5797E2F929525DC8007DED66 /* COPYING.txt */,
 				5797E2F7295245F1007DED66 /* README.md */,
 				BC1D2E74285395F600376122 /* HN Lens */,
