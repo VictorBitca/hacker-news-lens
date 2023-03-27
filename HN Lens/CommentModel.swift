@@ -19,6 +19,11 @@ class CommentModel: Identifiable, ObservableObject {
     var kids: [CommentModel]
     let indentations: [Indentation]
     
+    lazy var attributedString: AttributedString = {
+        let result = try? AttributedString(text, including: \.uiKit)
+        return result ?? AttributedString(stringLiteral: "")
+    }()
+    
     init(id: Int = 0,
          author: String = "",
          text: NSAttributedString = NSAttributedString(string: ""),
@@ -34,6 +39,18 @@ class CommentModel: Identifiable, ObservableObject {
         self.isDowngraded = isDowngraded
         self.kids = kids
         self.indentations = (0...level).map { Indentation(level: $0, color: Pallete.rainbowColors(at: $0)) }
+    }
+    
+    func upvote() {
+        Task {
+            try? await HackerNewsAPI.shared.vote(id: hnID, actionType: .upvote)
+        }
+    }
+    
+    func favorite() {
+        Task {
+            try? await HackerNewsAPI.shared.favorite(id: hnID, actionType: .add)
+        }
     }
 }
 

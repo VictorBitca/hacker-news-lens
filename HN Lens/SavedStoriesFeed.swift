@@ -1,12 +1,10 @@
 import SwiftUI
 import HackerNewsKit
-import AttributedText
 import ComposableArchitecture
 
 struct SavedStoriesFeed: ReducerProtocol, Hashable {
     enum Action: Equatable {
         case viewAppeared
-        case commentsFetched([SavedCommentModel])
         case storiesFetched([PostModel])
         case refresh
     }
@@ -23,9 +21,12 @@ struct SavedStoriesFeed: ReducerProtocol, Hashable {
         var title = "Stories"
     }
     
+    private enum FetchRequestID {}
+    
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .viewAppeared:
+            
             switch state.saveType {
             case .upvote:
                 state.title = "Upvoted Stories"
@@ -39,15 +40,17 @@ struct SavedStoriesFeed: ReducerProtocol, Hashable {
             case .loading:
                 return fetchAllStories(state: &state)
             }
-        case .commentsFetched(_):
-            return .none
+            
         case .storiesFetched(let posts):
             state.loadedPosts += posts
             state.feedState = .loaded
             return .none
         case .refresh:
             state.loadedPosts = []
-            return .none
+            return .merge(
+                .cancel(id: FetchRequestID.self),
+                fetchAllStories(state: &state)
+            )
         }
     }
     
@@ -57,13 +60,14 @@ struct SavedStoriesFeed: ReducerProtocol, Hashable {
         return .run { send in
             let channel = try HackerNewsAPI.shared.savedStories(of: saveType)
                 .map { savedStories in
-                    savedStories.map { PostModel(from: $0) }
+                    savedStories.map { PostModel(from: $0, index: nil) }
                 }
             
             for await stories in channel {
                 await send(.storiesFetched(stories))
-            }
+            }                
         }
+        .cancellable(id: FetchRequestID.self)
     }
 }
 
@@ -91,8 +95,8 @@ struct SavedPostsFeedView: View {
                             coordinator.path.append(post)
                         }
                 }
-            }
-        }.padding(.horizontal)
+            }.padding(.horizontal)
+        }
     }
 
     var body: some View {

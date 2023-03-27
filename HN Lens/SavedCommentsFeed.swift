@@ -1,6 +1,5 @@
 import SwiftUI
 import HackerNewsKit
-import AttributedText
 import ComposableArchitecture
 
 struct SavedCommentsFeed: ReducerProtocol {
@@ -21,6 +20,8 @@ struct SavedCommentsFeed: ReducerProtocol {
         var loadedComments = [SavedCommentModel]()
         var title = "Comments"
     }
+    
+    private enum FetchRequestID {}
     
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
@@ -44,7 +45,10 @@ struct SavedCommentsFeed: ReducerProtocol {
             return .none
         case .refresh:
             state.loadedComments = []
-            return .none
+            return .merge(
+                .cancel(id: FetchRequestID.self),
+                fetchAllComments(state: &state)
+            )
         }
     }
     
@@ -60,6 +64,7 @@ struct SavedCommentsFeed: ReducerProtocol {
                 await send(.commentsFetched(comments))
             }
         }
+        .cancellable(id: FetchRequestID.self)
     }
 }
 
@@ -70,11 +75,12 @@ struct SavedCommentsFeedView: View {
     @ViewBuilder
     func commentsList(comments: [SavedCommentModel]) -> some View {
         ScrollView {
-                ForEach(comments) { comment in
-                    SavedCommentView(model: comment)
-                        .listRowSeparator(.hidden)
-                }
-        }.padding(.horizontal)
+            ForEach(comments) { comment in
+                SavedCommentView(model: comment)
+                    .listRowSeparator(.hidden)
+            }
+            .padding(.horizontal)
+        }
     }
 
     var body: some View {
@@ -120,12 +126,18 @@ struct SavedCommentView: View {
         HStack() {
             VStack(alignment: .leading) {
                 Text(model.parentPost.title)
-                    .font(.callout)
+                    .font(.body)
+                    .bold()
                     .minimumScaleFactor(0.3)
                     .foregroundColor(.primary)
-                AttributedText(CommentParser.buildAttributedText(from: model.comment.text,
-                                                                 textColor: Pallete.textPrimary,
-                                                                 font: UIFont.preferredFont(forTextStyle: .footnote)) ?? NSAttributedString(string: ""))
+
+                if let attributedText = CommentParser.buildAttributedText(from: model.comment.text,
+                                                                          textColor: Pallete.textPrimary,
+                                                                          font: UIFont.preferredFont(forTextStyle: .callout)),
+                    let text = try? AttributedString(attributedText, including: \.uiKit) {
+                    Text(text)
+                        .padding()
+                }
             }
             .padding()
         }

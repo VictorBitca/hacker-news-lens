@@ -7,6 +7,18 @@
 ![App Image](images/macos_promo.png?)
 -------
 
+Features
+-------
+- [x] Browse all HN feeds.
+- [x] Link preview 
+- [x] Search (stories).
+- [x] Immediate and progressive comment tree display/load.
+- [ ] Collapse comment trees.
+- [x] Sign In, browse all personal upvoted/favorite stories/comments.
+- [x] Upvote/favorite stories/comments.
+- [ ] Post replies.
+- [ ] Submit stories.
+
 The app consists of two main components, the SwiftUI part and the [**HackerNewsKit**](https://github.com/VictorBitca/HackerNewsKit) package that initially was part of the project.
 
 **HackerNewsKit** was extracted after the line between strictly UI code and HN API wrappers and other services became clearer, it is responsible for most of the heavy lifting:
@@ -19,6 +31,7 @@ Building and running
 
 The HackerNewsKit dependency uses Firebase to access the public HN API, therefore the project requires a `GoogleService-Info.plist` config file in the `HN Lens` folder.
 [See how to generate and download the Firebase config file for details](https://support.google.com/firebase/answer/7015592?hl=en#ios)
+
 The most important step is to add the database URL in plist:
 ```
     ...

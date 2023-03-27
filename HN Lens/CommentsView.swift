@@ -16,8 +16,8 @@ struct CommentsView: View {
         VStack {
             if let comments = post.comments {
                 ScrollView {
+                    postView.padding()
                     LazyVStack(spacing: 0) {
-                        postView.padding(.bottom)
                         ForEach(comments) { comment in
                             CommentView(comment: comment)
                         }
@@ -46,7 +46,8 @@ struct CommentsView_Previews: PreviewProvider {
                                  descendants: "37",
                                  time: "4 hours ago",
                                  kids: [33685217, 33685847, 33684981, 33685312, 33685315, 33686068, 33686319, 33685111, 33687706, 33701029, 33685809, 33686335],
-                                 text: nil)
+                                 text: nil,
+                                 index: 0)
             return post
         }
 

@@ -9,7 +9,9 @@ public class SearchModel: ObservableObject {
     
     func search(for term: String) {
         Task {
-            searchResults = try await HackerNewsAPI.shared.search(query: term).map { PostModel(from: $0) }
+            searchResults = try await HackerNewsAPI.shared.search(query: term)
+                .enumerated()
+                .map { index, item in PostModel(from: item, index: index) }
         }
     }
 }

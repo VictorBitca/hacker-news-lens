@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct Pallete {
-    public static let accent = UIColor.init(named: "AccentColor")!
     public static let background = UIColor.init(named: "Background")!
     public static let textPrimary = UIColor.init(named: "TextPrimary")!
     public static let textSecondary = UIColor.init(named: "TextSecondary")!

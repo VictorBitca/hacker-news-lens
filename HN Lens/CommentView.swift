@@ -1,11 +1,11 @@
 import SwiftUI
 import HackerNewsKit
-import AttributedText
 
 struct CommentView: View {
     @ObservedObject var comment: CommentModel
     @State var safariURL: URL? = nil
     @State var presentingSafariView = false
+    @State private var showActionSheet = false
     
     var body: some View {
         let commentIndentation = 8 * CGFloat(comment.level)
@@ -33,9 +33,30 @@ struct CommentView: View {
                         Text(comment.time)
                             .font(.caption2)
                             .foregroundColor(Pallete.textSecondary.color)
-                    }.padding(.init(top: 8, leading: 8, bottom: 0, trailing: 0))
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showActionSheet.toggle()
+                        }, label: {
+                            Image("dots")
+                                .foregroundColor(Pallete.textSecondary.color)
+                                .padding(8)
+                        })
+                        .actionSheet(isPresented: $showActionSheet) {
+                            ActionSheet(
+                                title: Text("Actions"),
+                                buttons: [
+                                    .default(Text("Upvote"), action: { comment.upvote() }),
+                                    .default(Text("Favorite"), action: { comment.favorite() }),
+                                    .cancel()
+                                ]
+                            )
+                        }
+                    }
+                    .padding(.init(top: 8, leading: 8, bottom: 0, trailing: 0))
                     
-                    AttributedText(attributedText: { comment.text })
+                    Text(comment.attributedString)
                         .padding(.init(top: 0, leading: 8, bottom: 8, trailing: 8))
                 }
                 Spacer()

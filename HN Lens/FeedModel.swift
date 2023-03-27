@@ -25,7 +25,9 @@ public class FeedModel: ObservableObject {
     
     func fetchPosts() async {
         do {
-            let allStories = try await HackerNewsAPI.shared.mainFeedItems(feedType: feedType).map { PostModel(from: $0) }
+            let allStories = try await HackerNewsAPI.shared.mainFeedItems(feedType: feedType)
+                .enumerated()
+                .map { index, item in PostModel(from: item, index: index) }
             
             state = .loaded(posts: allStories)
         } catch {
