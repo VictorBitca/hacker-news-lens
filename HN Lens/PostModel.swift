@@ -14,9 +14,13 @@ public class PostModel: Identifiable, ObservableObject {
     let descendants: String
     let time: String
     let text: String?
-    let primaryAccentcolor = Pallete.randomAccent
-    let secondaryAccentColor = UIColor.random
-    var isDisplayingComments = false
+    let index: Int?
+    let primaryAccentColor = Pallete.randomAccent
+    lazy var secondaryAccentColor: UIColor = {
+        primaryAccentColor.lighter()
+    }()
+    private var isDisplayingComments = false
+    private var isVisible = false
     
     @Published var thumbnailImage: UIImage? = nil
     @Published var icon: UIImage? = nil
@@ -46,6 +50,7 @@ public class PostModel: Identifiable, ObservableObject {
             case askHN = "Ask HN:"
             case showHN = "Show HN:"
             case tellHN = "Tell HN:"
+            case launchHN = "Launch HN:"
         }
         
         if hostIsHN {
@@ -55,6 +60,8 @@ public class PostModel: Identifiable, ObservableObject {
                 return HNPostType.showHN.rawValue
             } else if title.contains(HNPostType.tellHN.rawValue) {
                 return HNPostType.tellHN.rawValue
+            } else if title.contains(HNPostType.launchHN.rawValue) {
+                return HNPostType.launchHN.rawValue
             }
             return "HN"
         }
@@ -85,18 +92,15 @@ public class PostModel: Identifiable, ObservableObject {
     lazy var attributedText: NSAttributedString? = {
         guard let text else { return nil }
         
-        let font = UIFont.preferredFont(forTextStyle: .footnote)
+        let font = UIFont.preferredFont(forTextStyle: .callout)
         return CommentParser.buildAttributedText(from: text, textColor: Pallete.textPrimary, font: font)
     }()
     
     private let kids: [Int]
-    private var imageTask: Task<Void, Never>? = nil
     private var metadataFetched = false
-    private lazy nonisolated var iterator = {
-        return CommentAsyncSequence(items: kids).makeAsyncIterator()
-    }()
+    private var imageTask: Task<Void, Never>? = nil
     
-    nonisolated init(from story: StoryItem) {
+    nonisolated init(from story: StoryItem, index: Int?) {
         hnID = story.id
         url = story.url
         title = story.title
@@ -106,6 +110,7 @@ public class PostModel: Identifiable, ObservableObject {
         time = story.time
         kids = story.kids
         text = story.text
+        self.index = index
     }
     
     nonisolated init(hnID: Int,
@@ -116,7 +121,8 @@ public class PostModel: Identifiable, ObservableObject {
                      descendants: String,
                      time: String,
                      kids: [Int],
-                     text: String?) {
+                     text: String?,
+                     index: Int?) {
         self.hnID = hnID
         self.url = url
         self.title = title
@@ -126,36 +132,34 @@ public class PostModel: Identifiable, ObservableObject {
         self.time = time
         self.kids = kids
         self.text = text
+        self.index = index
     }
     
     func didAppear() {
+        isVisible = true
         if metadataFetched { return }
-//        fetchImageMetadata()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.3...0.6)) {
+            if self.isVisible {
+                self.fetchImageMetadata()
+            }
+        }
     }
     
     func didDisappear() {
+        isVisible = false
         imageTask?.cancel()
+        imageTask = nil
     }
     
     func commentsDidDisappear() {
         isDisplayingComments = false
     }
     
-    func fetchImageMetadata() {
-        imageTask = Task {
-            guard let url else { return }
-            guard let image = await LinkPreviewProvider.shared.previewImage(for: url) else {
-                return
-            }
-            self.metadataFetched = true
-            self.thumbnailImage = image
-        }
-    }
-    
     func loadComments() async throws {
         isDisplayingComments = true
         let commentItemToCommentModel: (CommentItem) -> CommentModel = { comment in
-            let font = UIFont.preferredFont(forTextStyle: .footnote)
+            let font = UIFont.preferredFont(forTextStyle: .callout)
             let attributedCommentString = CommentParser.buildAttributedText(from: comment.text, textColor: Pallete.textPrimary, font: font) ?? NSAttributedString(string: "")
             return CommentModel(id: comment.id, author: comment.author, text: attributedCommentString, time: comment.time, level: comment.index)
         }
@@ -176,6 +180,32 @@ public class PostModel: Identifiable, ObservableObject {
         }
         
         UIApplication.shared.open(url)
+    }
+    
+    func upvote() {
+        Task {
+            try? await HackerNewsAPI.shared.vote(id: hnID, actionType: .upvote)
+        }
+    }
+    
+    func favorite() {
+        Task {
+            try? await HackerNewsAPI.shared.favorite(id: hnID, actionType: .add)
+        }
+    }
+    
+    private func fetchImageMetadata() {
+        guard let url else { return }
+        
+        imageTask = Task {
+            guard let image = await LinkPreviewProvider.shared.previewImage(for: url) else {
+                self.imageTask = nil
+                return
+            }
+            self.metadataFetched = true
+            self.thumbnailImage = image
+            self.imageTask = nil
+        }
     }
 }
 

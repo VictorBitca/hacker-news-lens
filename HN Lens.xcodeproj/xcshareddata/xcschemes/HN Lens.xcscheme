@@ -29,24 +29,12 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BC1D2E81285395FA00376122"
+               BlueprintIdentifier = "5776230829C3537100331C2B"
                BuildableName = "HN LensTests.xctest"
                BlueprintName = "HN LensTests"
-               ReferencedContainer = "container:HN Lens.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "YES"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BC1D2E8B285395FA00376122"
-               BuildableName = "HN LensUITests.xctest"
-               BlueprintName = "HN LensUITests"
                ReferencedContainer = "container:HN Lens.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -94,7 +82,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

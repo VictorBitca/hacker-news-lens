@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "attributedtext",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/VictorBitca/AttributedText",
-      "state" : {
-        "branch" : "main",
-        "revision" : "0e5911828b8d575794d2b35ee89c0a309c5b9c85"
-      }
-    },
-    {
       "identity" : "boringssl-swiftpm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/boringssl-SwiftPM.git",
@@ -88,15 +79,6 @@
       "state" : {
         "revision" : "5ccda3981422a84186387dbb763ba739178b529c",
         "version" : "2.3.0"
-      }
-    },
-    {
-      "identity" : "hackernewskit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/VictorBitca/HackerNewsKit",
-      "state" : {
-        "revision" : "c3c06b1a66fda29e1393c87a9f94174e86340074",
-        "version" : "0.0.1"
       }
     },
     {
@@ -232,6 +214,15 @@
       "state" : {
         "revision" : "270a754308f5440be52fc295242eb7031638bd15",
         "version" : "0.6.1"
+      }
+    },
+    {
+      "identity" : "swiftuikitview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AvdLee/SwiftUIKitView",
+      "state" : {
+        "revision" : "56f2a1f8e35d5c258f633e8472cd59345ed5ae59",
+        "version" : "2.0.0"
       }
     },
     {

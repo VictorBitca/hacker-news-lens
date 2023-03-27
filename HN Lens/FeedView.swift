@@ -12,29 +12,37 @@ struct FeedView: View {
 
     var body: some View {
         VStack {
-            switch model.state {
-            case .loading, .failed:
-                ProgressView()
-            case .loaded(let posts):
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(posts) { post in
-                            PostView(post: post)
-                                .onAppear {
-                                    post.didAppear()
-                                }
-                                .onDisappear {
-                                    post.didDisappear()
-                                }
-                                .listRowSeparator(.hidden)
-                                .onTapGesture {
-                                    coordinator.path.append(post)
-                                }
+            ZStack {
+                LinearGradient(colors: [Pallete.background.color,
+                                        Pallete.background.color,
+                                        Pallete.appleViolet.color.opacity(0.25)],
+                               startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
+               
+                switch model.state {
+                case .loading, .failed:
+                    ProgressView()
+                case .loaded(let posts):
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(posts) { post in
+                                PostView(post: post)
+                                    .onAppear {
+                                        post.didAppear()
+                                    }
+                                    .onDisappear {
+                                        post.didDisappear()
+                                    }
+                                    .listRowSeparator(.hidden)
+                                    .onTapGesture {
+                                        coordinator.path.append(post)
+                                    }
+                            }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .refreshable { await model.fetchPosts() }
                 }
-                .refreshable { await model.fetchPosts() }
             }
         }
         .navigationTitle("News")
