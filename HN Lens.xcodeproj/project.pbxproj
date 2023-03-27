@@ -11,7 +11,6 @@
 		5772431A29B5438C0000A236 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5772431929B5438C0000A236 /* ComposableArchitecture */; };
 		5772431F29BFB9EB0000A236 /* SavedCommentsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5772431E29BFB9EB0000A236 /* SavedCommentsFeed.swift */; };
 		577622F629C350A100331C2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577622F529C350A100331C2B /* Extensions.swift */; };
-		5776230C29C3537100331C2B /* HN_LensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5776230B29C3537100331C2B /* HN_LensTests.swift */; };
 		5776231229C3539A00331C2B /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577622F329C3506C00331C2B /* StringExtensionTests.swift */; };
 		5792456229D064250031A48C /* SwiftUIKitView in Frameworks */ = {isa = PBXBuildFile; productRef = 5792456129D064250031A48C /* SwiftUIKitView */; };
 		5792456429D0BC380031A48C /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5792456329D0BC380031A48C /* ThumbnailGenerator.swift */; };
@@ -70,9 +69,7 @@
 		5772431E29BFB9EB0000A236 /* SavedCommentsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCommentsFeed.swift; sourceTree = "<group>"; };
 		577622F329C3506C00331C2B /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		577622F529C350A100331C2B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		577622FD29C352FA00331C2B /* HN_LensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HN_LensTests.swift; sourceTree = "<group>"; };
 		5776230929C3537100331C2B /* HN LensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HN LensTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5776230B29C3537100331C2B /* HN_LensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HN_LensTests.swift; sourceTree = "<group>"; };
 		5776231329C3B7D200331C2B /* HackerNewsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HackerNewsKit; path = ../HackerNewsKit; sourceTree = "<group>"; };
 		5792456329D0BC380031A48C /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
 		5797E2F7295245F1007DED66 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -123,22 +120,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		577622FC29C352FA00331C2B /* HN LensTests */ = {
-			isa = PBXGroup;
-			children = (
-				577622FD29C352FA00331C2B /* HN_LensTests.swift */,
-			);
-			path = "HN LensTests";
-			sourceTree = "<group>";
-		};
-		5776230A29C3537100331C2B /* HN LensTests */ = {
-			isa = PBXGroup;
-			children = (
-				5776230B29C3537100331C2B /* HN_LensTests.swift */,
-			);
-			path = "HN LensTests";
-			sourceTree = "<group>";
-		};
 		BC1D2E69285395F600376122 = {
 			isa = PBXGroup;
 			children = (
@@ -147,8 +128,6 @@
 				5797E2F7295245F1007DED66 /* README.md */,
 				BC1D2E74285395F600376122 /* HN Lens */,
 				BC1D2E85285395FA00376122 /* HN LensTests */,
-				577622FC29C352FA00331C2B /* HN LensTests */,
-				5776230A29C3537100331C2B /* HN LensTests */,
 				BC1D2E73285395F600376122 /* Products */,
 				BCF4FE2728C2A71F00A766CB /* Frameworks */,
 			);
@@ -336,7 +315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5776231229C3539A00331C2B /* StringExtensionTests.swift in Sources */,
-				5776230C29C3537100331C2B /* HN_LensTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
