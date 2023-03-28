@@ -26,21 +26,7 @@ struct SavedStoriesFeed: ReducerProtocol, Hashable {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .viewAppeared:
-            
-            switch state.saveType {
-            case .upvote:
-                state.title = "Upvoted Stories"
-            case .favorite:
-                state.title = "Favorite Stories"
-            }
-            
-            switch state.feedState {
-            case .loaded:
-                return .none
-            case .loading:
-                return fetchAllStories(state: &state)
-            }
-            
+            return onViewAppeared(into: &state)
         case .storiesFetched(let posts):
             state.loadedPosts += posts
             state.feedState = .loaded
@@ -51,6 +37,22 @@ struct SavedStoriesFeed: ReducerProtocol, Hashable {
                 .cancel(id: FetchRequestID.self),
                 fetchAllStories(state: &state)
             )
+        }
+    }
+    
+    private func onViewAppeared(into state: inout State) -> EffectTask<Action> {
+        switch state.saveType {
+        case .upvote:
+            state.title = "Upvoted Stories"
+        case .favorite:
+            state.title = "Favorite Stories"
+        }
+        
+        switch state.feedState {
+        case .loaded:
+            return .none
+        case .loading:
+            return fetchAllStories(state: &state)
         }
     }
     

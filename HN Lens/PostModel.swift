@@ -19,6 +19,7 @@ public class PostModel: Identifiable, ObservableObject {
     lazy var secondaryAccentColor: UIColor = {
         primaryAccentColor.lighter()
     }()
+    let titleShadowColor = Pallete.randomAccent.darker()
     private var isDisplayingComments = false
     private var isVisible = false
     

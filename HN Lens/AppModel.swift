@@ -10,7 +10,6 @@ public class AppModel: ObservableObject {
     let showFeedModel = FeedModel(feedType: .show)
     let jobsFeedModel = FeedModel(feedType: .jobs)
     let searchModel = SearchModel()
-    let accountModel = AccountModel()
 }
 
 public extension AppModel {
