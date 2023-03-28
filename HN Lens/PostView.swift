@@ -142,9 +142,21 @@ struct PostView: View {
             ZStack(alignment: .center) {
                 let primaryAccent = post.primaryAccentColor.color
                 let secondaryAccent = post.secondaryAccentColor.color
+                let titleBackground = post.titleShadowColor.color
+                
                 Rectangle()
                     .frame(width: 120, height: 80)
                     .foregroundStyle(LinearGradient(gradient: Gradient(colors: [primaryAccent, secondaryAccent]), startPoint: .bottom, endPoint: .top))
+                
+                Text(post.siteSymbol)
+                    .font(.title)
+                    .bold()
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(3)
+                    .foregroundColor(titleBackground)
+                    .padding([.leading, .bottom, .trailing], 8)
+                    .frame(maxWidth: 120)
+                
                 Text(post.siteSymbol)
                     .font(.title)
                     .bold()
@@ -153,6 +165,7 @@ struct PostView: View {
                     .foregroundColor(.white)
                     .padding([.leading, .bottom, .trailing], 8)
                     .frame(maxWidth: 120)
+                    .offset(x: -3, y: -3)
             }
             .cornerRadius(4)
             
