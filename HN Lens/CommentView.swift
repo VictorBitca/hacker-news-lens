@@ -57,6 +57,7 @@ struct CommentView: View {
                     .padding(.init(top: 8, leading: 8, bottom: 0, trailing: 0))
                     
                     Text(comment.attributedString)
+                        .textSelection(.enabled)
                         .padding(.init(top: 0, leading: 8, bottom: 8, trailing: 8))
                 }
                 Spacer()

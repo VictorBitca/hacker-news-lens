@@ -22,14 +22,6 @@ struct Root: ReducerProtocol {
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             return .none
-//            switch action {
-//            case .onAppear:
-//                state = .init()
-//                return .none
-//
-//            default:
-//                return .none
-//            }
         }
         
         Scope(state: \.detail, action: /Action.detail) {
@@ -41,8 +33,7 @@ struct Root: ReducerProtocol {
 struct RootView: View {
     let store: StoreOf<Root>
     
-    // TODO: integrate legacy model, coordinator and selectedTab into composable architecture
-    @StateObject private var model = AppModel()
+    // TODO: integrate coordinator and selectedTab into composable architecture
     @StateObject var coordinator = Coordinator()
     @State private var selectedTab: Panel? = Panel.top
     
@@ -52,8 +43,7 @@ struct RootView: View {
         } detail: {
             NavigationStack(path: $coordinator.path) {
                 DetailView(store: store.scope(state: \.detail, action: Root.Action.detail),
-                           selection: $selectedTab,
-                           model: model)
+                           selection: $selectedTab)
             }
             .environmentObject(coordinator)
         }
