@@ -4,9 +4,8 @@ import HackerNewsKit
 import Combine
 
 @MainActor
-public class PostModel: Identifiable, ObservableObject {
-    public let id = UUID()
-    let hnID: Int
+class PostModel: Identifiable, ObservableObject {
+    let id: Int
     let url: URL?
     let title: String
     let author: String
@@ -15,11 +14,15 @@ public class PostModel: Identifiable, ObservableObject {
     let time: String
     let text: String?
     let index: Int?
-    let primaryAccentColor = Pallete.randomAccent
+    lazy var primaryAccentColor: UIColor = {
+        Pallete.randomAccent
+    }()
     lazy var secondaryAccentColor: UIColor = {
         primaryAccentColor.lighter()
     }()
-    let titleShadowColor = Pallete.randomAccent.darker()
+    lazy var titleShadowColor: UIColor = {
+        Pallete.randomAccent.darker()
+    }()
     private var isDisplayingComments = false
     private var isVisible = false
     
@@ -87,7 +90,7 @@ public class PostModel: Identifiable, ObservableObject {
     }()
     
     lazy var hnURL: URL? = {
-        return URL(string: "https://news.ycombinator.com/item?id=\(hnID)")
+        return URL(string: "https://news.ycombinator.com/item?id=\(id)")
     }()
     
     lazy var attributedText: NSAttributedString? = {
@@ -102,7 +105,7 @@ public class PostModel: Identifiable, ObservableObject {
     private var imageTask: Task<Void, Never>? = nil
     
     nonisolated init(from story: StoryItem, index: Int?) {
-        hnID = story.id
+        id = story.id
         url = story.url
         title = story.title
         author = story.author
@@ -114,7 +117,7 @@ public class PostModel: Identifiable, ObservableObject {
         self.index = index
     }
     
-    nonisolated init(hnID: Int,
+    nonisolated init(id: Int,
                      url: URL?,
                      title: String,
                      author: String,
@@ -124,7 +127,7 @@ public class PostModel: Identifiable, ObservableObject {
                      kids: [Int],
                      text: String?,
                      index: Int?) {
-        self.hnID = hnID
+        self.id = id
         self.url = url
         self.title = title
         self.author = author
@@ -185,13 +188,13 @@ public class PostModel: Identifiable, ObservableObject {
     
     func upvote() {
         Task {
-            try? await HackerNewsAPI.shared.vote(id: hnID, actionType: .upvote)
+            try? await HackerNewsAPI.shared.vote(id: id, actionType: .upvote)
         }
     }
     
     func favorite() {
         Task {
-            try? await HackerNewsAPI.shared.favorite(id: hnID, actionType: .add)
+            try? await HackerNewsAPI.shared.favorite(id: id, actionType: .add)
         }
     }
     

@@ -38,7 +38,7 @@ struct CommentsView: View {
 struct CommentsView_Previews: PreviewProvider {
     struct Preview: View {
         static func somePost() -> PostModel {
-            let post = PostModel(hnID: 33684666,
+            let post = PostModel(id: 33684666,
                                  url: URL(string: "https://defn.io/2022/11/20/ann-franz/"),
                                  title: "Show HN: A native macOS client for Apache Kafka",
                                  author: "Bogdanp",

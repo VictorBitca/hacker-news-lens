@@ -1,6 +1,7 @@
 import SwiftUI
 import HackerNewsKit
 import ComposableArchitecture
+import XCTestDynamicOverlay
 
 @main
 struct HNLens: App {    
@@ -10,9 +11,11 @@ struct HNLens: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView(
-                store: Store(initialState: Root.State(), reducer: Root())
-            )
+            if !_XCTIsTesting {
+                RootView(
+                    store: Store(initialState: Root.State(), reducer: Root())
+                )
+            }
         }
     }
 }
